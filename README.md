@@ -43,7 +43,9 @@ in some scenarios the OCL authorisation constraints can be proven to be unnecess
   - There is only one Role: `Lecturer`.
   - Every lecturer can read his/her own students' age.
     - OCL authorisation constaint: `caller.students->exists(s|s = self)`.
-- Optimization scenario: If the user teaches every student, then no authorisation check is required when reading the age of students.
+- Invariant: Every teacher teaches every student.
+  - OCL implementation: `Lecturer.allInstances()->forAll(l|Student.allInstances()->forAll(s|l.students->includes(s)))`
+- Optimization scenario: no authorisation check is required when reading the age of students.
 
 ### Example 3:
 - Artifact name: Query2_Sec1.smt2
@@ -63,7 +65,9 @@ in some scenarios the OCL authorisation constraints can be proven to be unnecess
   - There is only one Role: `Lecturer`.
   - Every lecturer can read his/her own students' age.
     - OCL authorisation constaint: `caller.students->exists(s|s = students)`.
-- Optimization scenario: If the user teaches every student, then no authorisation check is required when reading any enrolment status.
+- Invariant: Every teacher teaches every student.
+  - OCL implementation: `Lecturer.allInstances()->forAll(l|Student.allInstances()->forAll(s|l.students->includes(s)))`
+- Optimization scenario: no authorisation check is required when reading any enrolment status.
 
 ## How to run the artifacts
 
